@@ -20,8 +20,19 @@ class App {
 
         this._initEventListeners();
 
-        // Initial rendrering
-        this.view.render(this.model.state);
+        // Initial rendrering - använd hjälpmetod för att inkludera settings
+        this.view.render(this._getViewState());
+    }
+
+    /**
+     * Skapar ett kombinerat objekt med både state och settings för vyn.
+     * Vyn behöver båda för att kunna visa korrekt information.
+     */
+    _getViewState() {
+        return {
+            ...this.model.state,
+            settings: this.model.settings
+        };
     }
 
     _initEventListeners() {
@@ -77,14 +88,14 @@ class App {
             this._loop();
         }
 
-        this.view.render(this.model.state);
+        this.view.render(this._getViewState());
     }
 
     stopSession() {
         this.model.stop();
         this.view.setPlaying(false);
         this._releaseWakeLock();
-        this.view.render(this.model.state);
+        this.view.render(this._getViewState());
 
         if (this.animationFrameId) {
             cancelAnimationFrame(this.animationFrameId);
@@ -128,7 +139,7 @@ class App {
 
         // Rendera bara om det behövs (Model säger till)
         if (shouldRender) {
-            this.view.render(this.model.state);
+            this.view.render(this._getViewState());
         }
 
         // Fortsätt loopen om vi fortfarande är aktiva

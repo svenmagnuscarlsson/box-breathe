@@ -1,0 +1,46 @@
+/* 
+  Custom styles to supplement Tailwind.
+  Focus on smooth animations and iOS Safe Area handling.
+*/
+
+:root {
+    /* Define safe area variables with fallbacks */
+    --cup-safe-area-top: env(safe-area-inset-top, 0px);
+    --cup-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pt-safe-top {
+    padding-top: var(--cup-safe-area-top);
+}
+
+.pb-safe-bottom {
+    padding-bottom: max(2rem, var(--cup-safe-area-bottom));
+}
+
+/* Smooth font rendering */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+  Breathing Box Animation 
+  We use CSS variables to control scale if we want purely CSS driven,
+  but for MVC sync, we might toggle classes or set inline styles.
+  Here we prep a class for 'breathing-in' if needed for fallback/simplicity.
+*/
+
+.breathing-in {
+    transform: scale(1.1);
+}
+
+.breathing-out {
+    transform: scale(0.9);
+}
+
+/* ensure text doesn't select during frantic tapping */
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

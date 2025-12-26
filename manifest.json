@@ -1,0 +1,21 @@
+{
+    "name": "Boxandning",
+    "short_name": "Boxandning",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#101622",
+    "theme_color": "#101622",
+    "description": "En enkel app för boxandning och fokus.",
+    "icons": [
+        {
+            "src": "https://via.placeholder.com/192.png/135bec/ffffff?text=Box",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://via.placeholder.com/512.png/135bec/ffffff?text=Box",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

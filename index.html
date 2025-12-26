@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html class="dark" lang="sv">
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <!-- 
         Viewport settings:
         'viewport-fit=cover' ensures the app fills the entire screen on iPhones with notches.
         'user-scalable=no' prevents accidental zooming which feels more "native".
     -->
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-    
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        name="viewport" />
+
     <title>Boxandning</title>
-    
+
     <!-- PWA / Mobile Capabilities -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#101622">
     <link rel="manifest" href="manifest.json">
 
     <!-- Fonts: Manrope & Material Symbols -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
 
     <!-- Tailwind CSS (CDN for development as per plan) -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
+
     <!-- Theme Configuration -->
     <script id="tailwind-config">
         tailwind.config = {
@@ -41,11 +46,11 @@
                         "display": ["Manrope", "sans-serif"]
                     },
                     borderRadius: {
-                        "DEFAULT": "0.5rem", 
-                        "lg": "1rem", 
-                        "xl": "1.5rem", 
-                        "2xl": "2rem", 
-                        "3xl": "2.5rem", 
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "3xl": "2.5rem",
                         "full": "9999px"
                     },
                     animation: {
@@ -59,38 +64,49 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased overflow-hidden selection:bg-primary selection:text-white touch-none select-none">
-    
-    <div class="relative flex h-[100dvh] w-full flex-col max-w-md mx-auto shadow-2xl overflow-hidden bg-background-light dark:bg-background-dark">
-        
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased overflow-hidden selection:bg-primary selection:text-white touch-none select-none">
+
+    <div
+        class="relative flex h-[100dvh] w-full flex-col max-w-md mx-auto shadow-2xl overflow-hidden bg-background-light dark:bg-background-dark">
+
         <!-- Top Bar -->
         <header class="flex items-center justify-between p-4 z-20 pt-safe-top">
-            <button class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Stäng">
+            <button
+                class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                aria-label="Stäng">
                 <span class="material-symbols-outlined text-[24px]">close</span>
             </button>
             <h2 class="text-base font-bold tracking-tight opacity-90">Boxandning</h2>
-            <button id="btn-settings" class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Inställningar">
+            <button id="btn-settings"
+                class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                aria-label="Inställningar">
                 <span class="material-symbols-outlined text-[24px]">settings</span>
             </button>
         </header>
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col items-center justify-center relative w-full px-6 py-4">
-            
+
             <!-- Phase Text -->
-            <div class="flex flex-col items-center justify-center mb-8 z-10 transition-opacity duration-500" id="phase-text-container">
+            <div class="flex flex-col items-center justify-center mb-8 z-10 transition-opacity duration-500"
+                id="phase-text-container">
                 <!-- Text dynamic updated via JS -->
                 <h1 id="instruction-text" class="text-4xl font-extrabold tracking-tight mb-2">Redo?</h1>
-                <p id="sub-instruction-text" class="text-slate-500 dark:text-slate-400 text-sm font-medium">Tryck på play för att börja</p>
+                <p id="sub-instruction-text" class="text-slate-500 dark:text-slate-400 text-sm font-medium">Tryck på
+                    play för att börja</p>
             </div>
 
             <!-- Breathing Animation Container -->
             <div class="relative flex items-center justify-center size-72 md:size-80">
                 <!-- Background Glow -->
-                <div class="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-[2.5rem] blur-3xl transform scale-90 transition-transform duration-[4000ms] ease-linear" id="glow-effect"></div>
-                
+                <div class="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-[2.5rem] blur-3xl transform scale-90 transition-transform duration-[4000ms] ease-linear"
+                    id="glow-effect"></div>
+
                 <!-- The "Box" Track (Background) -->
-                <div class="absolute inset-0 rounded-[2.5rem] border-[6px] border-slate-200 dark:border-slate-800"></div>
+                <div class="absolute inset-0 rounded-[2.5rem] border-[6px] border-slate-200 dark:border-slate-800">
+                </div>
 
                 <!-- Active Progress Indicator (SVG) -->
                 <svg class="absolute inset-0 size-full rotate-[-90deg]" viewbox="0 0 100 100">
@@ -100,32 +116,25 @@
                         pathLength="100" makes it easier to calculate percentage logic if needed, 
                         but here we use stroke-dasharray for the "Snake" effect.
                     -->
-                    <rect 
-                        id="progress-track"
-                        class="text-primary drop-shadow-[0_0_8px_rgba(19,91,236,0.8)]" 
-                        fill="none" 
-                        height="94" 
-                        width="94" 
-                        x="3" y="3" 
-                        rx="28" ry="28" 
-                        stroke="currentColor" 
-                        stroke-width="6" 
-                        stroke-linecap="round"
-                        stroke-dasharray="0 400" 
-                        stroke-dashoffset="0"
-                    ></rect>
+                    <rect id="progress-track" class="text-primary drop-shadow-[0_0_8px_rgba(19,91,236,0.8)]" fill="none"
+                        height="94" width="94" x="3" y="3" rx="28" ry="28" stroke="currentColor" stroke-width="6"
+                        stroke-linecap="round" stroke-dasharray="0 400" stroke-dashoffset="0"></rect>
                 </svg>
 
                 <!-- Breathing Fill (Expanding Square) -->
-                <div id="breathing-box" class="absolute inset-4 rounded-[2rem] bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center shadow-[inset_0_0_20px_rgba(19,91,236,0.2)] transform transition-transform will-change-transform">
+                <div id="breathing-box"
+                    class="absolute inset-4 rounded-[2rem] bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center shadow-[inset_0_0_20px_rgba(19,91,236,0.2)] transform transition-transform will-change-transform">
                     <!-- Timer Count -->
-                    <span id="timer-display" class="text-7xl font-bold text-slate-900 dark:text-white drop-shadow-md tabular-nums"></span>
+                    <span id="timer-display"
+                        class="text-7xl font-bold text-slate-900 dark:text-white drop-shadow-md tabular-nums"></span>
                 </div>
             </div>
 
             <!-- Decorative ambient elements -->
-            <div class="absolute bottom-10 left-10 size-32 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute top-20 right-10 size-40 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-10 left-10 size-32 bg-primary/5 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div class="absolute top-20 right-10 size-40 bg-purple-500/5 rounded-full blur-3xl pointer-events-none">
+            </div>
 
         </main>
 
@@ -139,23 +148,28 @@
 
             <!-- Progress Bar -->
             <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full mb-8 overflow-hidden">
-                <div id="session-progress-bar" class="h-full bg-primary rounded-full w-[0%] shadow-[0_0_10px_rgba(19,91,236,0.5)] transition-all duration-1000 ease-linear"></div>
+                <div id="session-progress-bar"
+                    class="h-full bg-primary rounded-full w-[0%] shadow-[0_0_10px_rgba(19,91,236,0.5)] transition-all duration-1000 ease-linear">
+                </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center justify-center gap-6">
                 <!-- Haptics Toggle -->
-                <button id="btn-haptics" aria-label="Vibration Av/På" class="flex items-center justify-center size-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <button id="btn-haptics" aria-label="Vibration Av/På"
+                    class="flex items-center justify-center size-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                     <span class="material-symbols-outlined">vibration</span>
                 </button>
 
                 <!-- Play/Pause (Primary) -->
-                <button id="btn-play-pause" aria-label="Starta Session" class="flex items-center justify-center size-20 rounded-[2rem] bg-primary text-white shadow-lg shadow-primary/30 hover:bg-blue-600 hover:scale-105 active:scale-95 transition-all duration-200">
+                <button id="btn-play-pause" aria-label="Starta Session"
+                    class="flex items-center justify-center size-20 rounded-[2rem] bg-primary text-white shadow-lg shadow-primary/30 hover:bg-blue-600 hover:scale-105 active:scale-95 transition-all duration-200">
                     <span class="material-symbols-outlined text-[40px]">play_arrow</span>
                 </button>
 
                 <!-- Stop Button -->
-                <button id="btn-stop" aria-label="Avsluta Session" class="flex items-center justify-center size-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-rose-500 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/20 transition-colors opacity-50 pointer-events-none group-data-[active=true]:opacity-100">
+                <button id="btn-stop" aria-label="Avsluta Session"
+                    class="flex items-center justify-center size-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-rose-500 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/20 transition-colors opacity-50 pointer-events-none group-data-[active=true]:opacity-100">
                     <span class="material-symbols-outlined">stop</span>
                 </button>
             </div>
@@ -165,4 +179,5 @@
     <!-- Application Logic -->
     <script type="module" src="js/app.js"></script>
 </body>
+
 </html>

@@ -161,7 +161,10 @@ export class BoxView {
     }
 
     _renderIdle(state) {
-        this.els.timerDisplay.textContent = state.settings.inhale;
+        // Ensure settings exist before accessing (bug fix)
+        const inhaleTime = state.settings ? state.settings.inhale : 4;
+
+        this.els.timerDisplay.textContent = inhaleTime;
         this.els.instructionText.textContent = state.isPaused ? "Pausad" : "Redo?";
         this.els.subInstruction.textContent = state.isPaused ? "Tryck play för att fortsätta" : "Tryck på play för att börja";
         this.els.breathingBox.style.transform = 'scale(1.0)';
